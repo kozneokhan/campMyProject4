@@ -5,7 +5,7 @@ import { ProductService } from '../services/product.service.js';
 const productService = new ProductService();
 
 export class ProductsController {
-  async createProduct(req, res) {
+  async createProduct(req, res, next) {
     try {
       const { id: userId, name: userName } = res.locals.user;
       const { title, description } = req.body;
@@ -29,15 +29,16 @@ export class ProductsController {
         data: { ...product, userName },
       });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
-      });
+      next(error);
+      // console.error(error);
+      // return res.status(500).json({
+      //   success: false,
+      //   message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
+      // });
     }
   }
 
-  async getProducts(req, res) {
+  async getProducts(req, res, next) {
     try {
       const { sort } = req.query;
       let upperCaseSort = sort?.toUpperCase();
@@ -54,15 +55,16 @@ export class ProductsController {
         data: products,
       });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
-      });
+      next(error);
+      // console.error(error);
+      // return res.status(500).json({
+      //   success: false,
+      //   message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
+      // });
     }
   }
 
-  async getProductById(req, res) {
+  async getProductById(req, res, next) {
     try {
       const { productId } = req.params;
 
@@ -74,15 +76,16 @@ export class ProductsController {
         data: product,
       });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
-      });
+      next(error);
+      // console.error(error);
+      // return res.status(500).json({
+      //   success: false,
+      //   message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
+      // });
     }
   }
 
-  async updateProduct(req, res) {
+  async updateProduct(req, res, next) {
     try {
       const { productId } = req.params;
       const { title, description, status } = req.body;
@@ -102,15 +105,16 @@ export class ProductsController {
         data: updatedProduct,
       });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
-      });
+      next(error);
+      // console.error(error);
+      // return res.status(500).json({
+      //   success: false,
+      //   message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
+      // });
     }
   }
 
-  async deleteProduct(req, res) {
+  async deleteProduct(req, res, next) {
     try {
       const { productId } = req.params;
       const { id: userId } = res.locals.user;
@@ -126,11 +130,12 @@ export class ProductsController {
         data: deletedProduct,
       });
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
-      });
+      next(error);
+      // console.error(error);
+      // return res.status(500).json({
+      //   success: false,
+      //   message: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.',
+      // });
     }
   }
 }
